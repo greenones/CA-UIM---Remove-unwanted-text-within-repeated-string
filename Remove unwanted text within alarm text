@@ -1,0 +1,25 @@
+--Gets alarm from AO
+a = alarm.get ()
+ 
+--Defines message text as b
+b = a.message
+ 
+--Test match to make stripped string visible - Use case - keep all text within keywords "Expected" and "but"
+--print(b:match("Expected([^/]+)but"))
+ 
+--Removes unwanted text
+c = (b:match("Expected([^/]+)but"))
+ 
+--Creates static suppression key - Ensures suppression key remain constant
+d = (b:match("Expected([^/]+)_20"))
+ 
+--Tests output of new message
+print ("Report missing - File name =" ..c.. "- Do something now")
+ 
+message = ("Report missing - File name =" ..c.. "- Do something now")
+suppkey = (d)
+subsys = "INSERT_SUBSYS"
+source = "INSERT_SOURCE"
+ 
+--Create alarm - set to informational for testing, amend as required.
+nimbus.alarm (1, message, suppkey, subsys, source)
